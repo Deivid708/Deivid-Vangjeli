@@ -1,66 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De — WordPress & Web Developer, Athens</title>
+<meta name="description" content="De builds custom WordPress sites for hotels, restaurants, and small businesses. Based in Athens, available for remote work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20262b;
+    --paper:#e8e4d3;
+    --paper-dark:#dad2ba;
+    --aegean:#24586b;
+    --aegean-deep:#173c48;
+    --brass:#b08d2b;
+    --line:#b9ad8f;
+    --display: 'Fraunces', serif;
+    --body: 'Work Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  /* -------- nav -------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(232,228,211,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:920px; margin:0 auto;
+  }
+  .logo{font-family:var(--display); font-weight:600; font-size:1.15rem; letter-spacing:0.01em;}
+  .navlinks{display:flex; gap:28px; list-style:none; font-family:var(--mono); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em;}
+  .navlinks a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px; transition:border-color .2s;}
+  .navlinks a:hover, .navlinks a:focus-visible{border-color:var(--aegean);}
+  .navtoggle{display:none; background:none; border:1px solid var(--ink); border-radius:4px; padding:6px 10px; font-family:var(--mono); cursor:pointer;}
+
+  /* -------- hero -------- */
+  .hero{
+    position:relative;
+    padding:88px 0 72px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent, transparent 37px,
+      var(--line) 38px
+    );
+    background-position: 0 96px;
+    overflow:hidden;
+  }
+  .hero .wrap{position:relative;}
+  .eyebrow{
+    font-family:var(--mono); font-size:0.78rem; text-transform:uppercase;
+    letter-spacing:0.14em; color:var(--aegean-deep);
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--brass);}
+  h1{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(2.4rem, 6vw, 4.1rem);
+    line-height:1.02;
+    max-width:11ch;
+    letter-spacing:-0.01em;
+  }
+  .hero p.lede{
+    margin-top:22px; max-width:46ch; font-size:1.08rem; color:#3a4147;
+  }
+  .cta-row{display:flex; gap:16px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:0.82rem; text-transform:uppercase; letter-spacing:0.05em;
+    padding:13px 22px; text-decoration:none; display:inline-block;
+    border:1px solid var(--ink); transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-primary{background:var(--aegean); color:#f4f0e4; border-color:var(--aegean);}
+  .btn-primary:hover{background:var(--aegean-deep); transform:translateY(-1px);}
+  .btn-ghost:hover{background:var(--ink); color:var(--paper); transform:translateY(-1px);}
+
+  .stamp{
+    position:absolute; top:38px; right:0;
+    width:104px; height:104px; border-radius:50%;
+    border:1.5px dashed var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    transform:rotate(-9deg);
+  }
+  .stamp span{
+    font-family:var(--mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--brass); text-align:center; line-height:1.5;
+  }
+  @media (max-width:640px){ .stamp{display:none;} }
+
+  /* -------- section shell -------- */
+  section{padding:64px 0;}
+  .section-head{display:flex; align-items:baseline; gap:16px; margin-bottom:34px;}
+  .section-num{font-family:var(--mono); font-size:0.8rem; color:var(--aegean);}
+  h2{font-family:var(--display); font-weight:600; font-size:1.7rem;}
+  .rule{height:1px; background:var(--line); border:none; margin:0;}
+
+  /* -------- featured work: ledger entry -------- */
+  .entry{
+    background:var(--paper-dark);
+    border:1px solid var(--line);
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:0;
+  }
+  @media (max-width:700px){ .entry{grid-template-columns:1fr;} }
+  .entry-meta{
+    padding:28px 24px; border-right:1px solid var(--line);
+    font-family:var(--mono); font-size:0.78rem;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  @media (max-width:700px){ .entry-meta{border-right:none; border-bottom:1px solid var(--line);} }
+  .entry-meta .k{color:#5a6167; text-transform:uppercase; letter-spacing:0.08em; font-size:0.68rem; margin-bottom:3px;}
+  .entry-body{padding:28px 26px;}
+  .entry-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em;
+    background:var(--aegean); color:#f4f0e4; padding:5px 10px; margin-bottom:16px;
+  }
+  .entry-badge::before{content:"●"; color:#8fd3c7; font-size:0.6rem;}
+  .entry h3{font-family:var(--display); font-size:1.5rem; font-weight:600; margin-bottom:10px;}
+  .entry p{color:#3a4147; max-width:56ch; margin-bottom:18px;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+  .tag{
+    font-family:var(--mono); font-size:0.7rem; text-transform:uppercase;
+    border:1px solid var(--line); padding:5px 10px; letter-spacing:0.03em;
+  }
+  .entry-links{display:flex; gap:18px; font-family:var(--mono); font-size:0.8rem;}
+  .entry-links a{text-decoration:underline; text-underline-offset:3px;}
+
+  /* visual placeholder */
+  .site-visual{
+    margin-top:8px; border:1px solid var(--line); aspect-ratio:16/8;
+    display:flex; align-items:center; justify-content:center;
+    background:
+      linear-gradient(180deg, #cfe4e9 0%, #cfe4e9 55%, var(--aegean) 55%, var(--aegean) 100%);
+    position:relative; overflow:hidden;
+  }
+  .site-visual svg{width:70%; max-width:340px;}
+
+  /* -------- skills -------- */
+  .skills-grid{display:flex; flex-wrap:wrap; gap:12px;}
+  .skill{
+    font-family:var(--mono); font-size:0.85rem;
+    border:1px solid var(--ink); padding:10px 16px;
+    background:var(--paper);
+  }
+  .skill b{color:var(--aegean-deep);}
+
+  /* -------- about -------- */
+  .about{display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:start;}
+  @media (max-width:700px){ .about{grid-template-columns:1fr;} }
+  .about p{color:#3a4147; margin-bottom:14px; max-width:52ch;}
+  .about-fig{border:1px solid var(--line); padding:22px; background:var(--paper-dark);}
+  .about-fig .k{font-family:var(--mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:#5a6167;}
+  .about-fig .v{font-family:var(--display); font-size:1.15rem; margin-top:4px; margin-bottom:16px;}
+
+  /* -------- contact -------- */
+  .contact{
+    background:var(--ink); color:var(--paper);
+    padding:72px 0;
+  }
+  .contact h2{color:var(--paper);}
+  .contact .section-num{color:#8fd3c7;}
+  .contact p.lede{color:#c9c4b4; max-width:44ch; margin-bottom:30px;}
+  .contact .btn-primary{background:var(--brass); border-color:var(--brass); color:#20262b;}
+  .contact .btn-primary:hover{background:#c9a13a;}
+  .contact .btn-ghost{border-color:var(--paper); color:var(--paper);}
+  .contact .btn-ghost:hover{background:var(--paper); color:var(--ink);}
+
+  footer{
+    padding:26px 28px; text-align:center;
+    font-family:var(--mono); font-size:0.72rem; color:#5a6167;
+    border-top:1px solid var(--line);
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+    .reveal.in{opacity:1; transform:translateY(0);}
+  }
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>Your Name</h1>
-        <p>Web Developer | Programmer | Designer</p>
-    </header>
+<header>
+  <nav>
+    <div class="logo">De.</div>
+    <ul class="navlinks" id="navlinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<section class="hero">
+  <div class="wrap">
+    <div class="stamp"><span>Athens<br>Est. Practice</span></div>
+    <p class="eyebrow">Web Developer — Athens, Greece</p>
+    <h1>Custom WordPress sites, built to load fast and win bookings.</h1>
+    <p class="lede">I design and build custom WordPress themes for hotels, restaurants, and small businesses — from scratch, not templates. Currently taking on remote projects for clients abroad.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#work">View my work</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</section>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Hi, I'm [Your Name], a passionate web developer with a knack for creating user-friendly and efficient websites. Welcome to my portfolio!</p>
-    </section>
+<section id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">01</span>
+      <h2>Featured work</h2>
+    </div>
+    <hr class="rule" style="margin-bottom:34px;">
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>HTML, CSS, JavaScript</li>
-            <li>React.js & Node.js</li>
-            <li>Python & Django</li>
-            <li>UI/UX Design</li>
-        </ul>
-    </section>
-
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project">
-            <h3>Project 1</h3>
-            <p>A brief description of your project. <a href="#">View Project</a></p>
+    <div class="entry reveal">
+      <div class="entry-meta">
+        <div>
+          <div class="k">Client</div>
+          <div>Boutique hotel, Greece</div>
         </div>
-        <div class="project">
-            <h3>Project 2</h3>
-            <p>A brief description of your project. <a href="#">View Project</a></p>
+        <div>
+          <div class="k">Role</div>
+          <div>Design & development</div>
         </div>
-    </section>
+        <div>
+          <div class="k">Built with</div>
+          <div>Custom WordPress theme</div>
+        </div>
+      </div>
+      <div class="entry-body">
+        <span class="entry-badge">Custom theme, built from scratch</span>
+        <h3>Ktima Elias</h3>
+        <p>A custom WordPress theme for a Greek boutique hotel — built without a page builder, with a working contact form wired to Gmail via WP Mail SMTP.</p>
+        <div class="tags">
+          <span class="tag">WordPress</span>
+          <span class="tag">PHP</span>
+          <span class="tag">Custom theme</span>
+          <span class="tag">WP Mail SMTP</span>
+        </div>
+        <div class="site-visual">
+          <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="60,120 120,70 180,120" fill="#173c48"/>
+            <rect x="70" y="120" width="100" height="60" fill="#1e4a5a"/>
+            <rect x="200" y="90" width="140" height="90" fill="#1e4a5a"/>
+            <rect x="210" y="105" width="18" height="18" fill="#cfe4e9"/>
+            <rect x="240" y="105" width="18" height="18" fill="#cfe4e9"/>
+            <rect x="270" y="105" width="18" height="18" fill="#cfe4e9"/>
+            <rect x="210" y="135" width="18" height="18" fill="#cfe4e9"/>
+            <rect x="240" y="135" width="18" height="18" fill="#cfe4e9"/>
+            <rect x="270" y="135" width="18" height="18" fill="#cfe4e9"/>
+            <rect x="90" y="150" width="24" height="30" fill="#0f2e38"/>
+          </svg>
+        </div>
+        <div class="entry-links" style="margin-top:18px;">
+          <a href="#" target="_blank" rel="noopener">View on GitHub →</a>
+          <span style="color:#8a8267;">Live site — launching soon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: yourname@example.com</p>
-        <p>LinkedIn: <a href="#">your-linkedin-profile</a></p>
-        <p>GitHub: <a href="#">your-github-profile</a></p>
-    </section>
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02</span>
+      <h2>Skills</h2>
+    </div>
+    <hr class="rule" style="margin-bottom:34px;">
+    <div class="skills-grid reveal">
+      <div class="skill"><b>WordPress</b> — custom themes, no page builders</div>
+      <div class="skill"><b>PHP</b></div>
+      <div class="skill"><b>HTML & CSS</b></div>
+      <div class="skill"><b>JavaScript</b></div>
+      <div class="skill"><b>Email/SMTP integration</b></div>
+      <div class="skill"><b>Site deployment</b> — cPanel & shared hosting</div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>© 2025 Your Name. All Rights Reserved.</p>
-    </footer>
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">03</span>
+      <h2>About</h2>
+    </div>
+    <hr class="rule" style="margin-bottom:34px;">
+    <div class="about reveal">
+      <div>
+        <p>I'm De, a web developer based in Athens. Originally from Albania, I build custom WordPress sites for hospitality and small businesses — the kind of clean, fast, no-page-builder work most agencies skip.</p>
+        <p>I'm building a freelance practice focused on foreign clients who want a site that actually loads fast, looks intentional, and doesn't feel like a template. Native-level English, direct communication, no time-zone excuses.</p>
+      </div>
+      <div class="about-fig">
+        <div class="k">Based in</div>
+        <div class="v">Athens, Greece</div>
+        <div class="k">Working with</div>
+        <div class="v">Remote clients, worldwide</div>
+        <div class="k">Available for</div>
+        <div class="v" style="margin-bottom:0;">New projects</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Get in touch</h2>
+    </div>
+    <hr class="rule" style="background:#3a4147; margin-bottom:34px;">
+    <p class="lede">Have a WordPress project — a hotel, restaurant, or small business site? Tell me what you need built.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:your-email@example.com">Email me</a>
+      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Fiverr profile</a>
+    </div>
+  </div>
+</section>
+
+<footer>De — Web Developer, Athens · Built by hand, no page builder.</footer>
+
+<script>
+  // reveal-on-scroll (respects prefers-reduced-motion via CSS class scoping)
+  const items = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  items.forEach(i=>io.observe(i));
+</script>
 
 </body>
 </html>
